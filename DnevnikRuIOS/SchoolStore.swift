@@ -32,6 +32,7 @@ final class SchoolStore: ObservableObject {
     func initialize() async {
         account = await vault.catalog()
         await openAccount()
+        NotificationCoordinator.configure(preferences.notifications)
         isReady = true
     }
     private func openAccount() async {
