@@ -176,7 +176,8 @@ struct BottomNavigation: View {
     ]
     var body: some View {
         HStack(spacing: 2) {
-            ForEach(items, id: \.0) { item in
+            ForEach(items.indices, id: \.self) { index in
+                let item = items[index]
                 Button {
                     store.navigate(item.0)
                     if item.0 == "Оценки" { Task { await store.loadGrades() } }
@@ -481,7 +482,7 @@ struct DiaryScreen: View {
                             }
                         }
                     }
-                    let extra = tasks.filter { $0.lessonId == 0 || !lessons.contains(where: { $0.id == $0.lessonId }) }
+                    let extra = tasks.filter { task in task.lessonId == 0 || !lessons.contains(where: { $0.id == task.lessonId }) }
                     if !extra.isEmpty {
                         SectionHeading(title: "Другие задания", action: nil)
                         SchoolPanel { ForEach(extra) { HomeworkRow(item: $0) } }
