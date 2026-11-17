@@ -276,7 +276,7 @@ actor WebsiteClient {
         let configuration = URLSessionConfiguration.ephemeral
         configuration.httpShouldSetCookies = true
         configuration.httpCookieAcceptPolicy = .onlyFromMainDocumentDomain
-        storage = HTTPCookieStorage()
+        storage = HTTPCookieStorage.sharedCookieStorage(forGroupContainerIdentifier: "ru.dnkx.myschool.ios.\(UUID().uuidString)")
         configuration.httpCookieStorage = storage
         for cookie in cookies.compactMap(\.asCookie) { storage.setCookie(cookie) }
         session = URLSession(configuration: configuration, delegate: guardDelegate, delegateQueue: nil)
@@ -327,7 +327,8 @@ actor WebsiteClient {
                            "api/v2/marks/school/\(school)/person/\(person)"
         var parameters = ["groupId": String(group)]
         if !final { parameters["periodId"] = period }
-        return try decode(await get(path, params: parameters))
+        let payload = try await get(path, params: parameters)
+        return try decode(payload)
     }
     private func decode(_ data: Data) throws -> [String: Any] {
         guard let result = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
