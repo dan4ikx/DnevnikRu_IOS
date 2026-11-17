@@ -164,7 +164,8 @@ struct SubjectDetails: View {
                         if !subject.results.isEmpty {
                             SectionHeading(title: "Официальные итоги", action: nil)
                             SchoolPanel {
-                                ForEach(Array(subject.results.enumerated()), id: \.offset) { _, result in
+                                ForEach(Array(subject.results.enumerated()), id: \.offset) { entry in
+                                    let result = entry.element
                                     HStack {
                                         Text(result.label)
                                         Spacer()
@@ -298,9 +299,10 @@ struct ProfileScreen: View {
                 TextField("Поиск настроек", text: $query).textFieldStyle(.roundedBorder)
                 SectionHeading(title: query.isEmpty ? "Настройки" : "Результаты поиска", action: nil)
                 SchoolPanel {
-                    ForEach(destinations.filter { query.isEmpty ||
+                    ForEach(Array(destinations.filter { query.isEmpty ||
                         $0.0.localizedCaseInsensitiveContains(query) || $0.2.localizedCaseInsensitiveContains(query)
-                    }, id: \.0) { item in
+                    }.enumerated()), id: \.offset) { entry in
+                        let item = entry.element
                         Button { store.navigate(item.0) } label: {
                             HStack(spacing: 13) {
                                 Image(systemName: item.1).frame(width: 26).font(.title3)
