@@ -37,6 +37,8 @@ targets:
         UILaunchScreen: {}
         UIBackgroundModes:
           - fetch
+        BGTaskSchedulerPermittedIdentifiers:
+          - ru.dnkx.myschool.ios.refresh
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
           - UIInterfaceOrientationLandscapeLeft
