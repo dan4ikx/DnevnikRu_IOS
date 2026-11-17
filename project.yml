@@ -1,0 +1,48 @@
+name: DnevnikRuIOS
+options:
+  bundleIdPrefix: ru.dnkx
+  deploymentTarget:
+    iOS: "17.0"
+  groupSortPosition: top
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+    TARGETED_DEVICE_FAMILY: "1,2"
+    CODE_SIGN_STYLE: Automatic
+    GENERATE_INFOPLIST_FILE: YES
+    INFOPLIST_KEY_CFBundleDisplayName: "Моя школа"
+    INFOPLIST_KEY_UILaunchScreen_Generation: YES
+    INFOPLIST_KEY_UIApplicationSupportsDocumentBrowser: NO
+    INFOPLIST_KEY_UIRequiresFullScreen: NO
+    ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: YES
+    SUPPORTS_MACCATALYST: NO
+targets:
+  DnevnikRuIOS:
+    type: application
+    platform: iOS
+    sources:
+      - path: DnevnikRuIOS
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: ru.dnkx.myschool.ios
+        INFOPLIST_KEY_CFBundleShortVersionString: "1.0.0"
+        INFOPLIST_KEY_CFBundleVersion: "1"
+        SWIFT_EMIT_LOC_STRINGS: YES
+    info:
+      path: DnevnikRuIOS/Info.plist
+      properties:
+        CFBundleDisplayName: "Моя школа"
+        CFBundleDevelopmentRegion: ru
+        UILaunchScreen: {}
+        UIBackgroundModes:
+          - fetch
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
