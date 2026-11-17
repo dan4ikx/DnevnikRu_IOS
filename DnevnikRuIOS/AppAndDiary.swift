@@ -4,6 +4,7 @@ import UniformTypeIdentifiers
 
 @main
 struct MySchoolApp: App {
+    @UIApplicationDelegateAdaptor(MySchoolAppDelegate.self) private var appDelegate
     @StateObject private var store = SchoolStore()
     var body: some Scene {
         WindowGroup {
