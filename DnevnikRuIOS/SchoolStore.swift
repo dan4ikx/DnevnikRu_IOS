@@ -91,7 +91,6 @@ final class SchoolStore: ObservableObject {
         }
     }
     func refresh(student: Int64? = nil, group: Int64? = nil) async {
-        guard !isLoading else { return }
         guard let snapshot, snapshot.demo == true else {
             await syncFromWebsite(student: student, group: group)
             return
@@ -151,7 +150,7 @@ final class SchoolStore: ObservableObject {
             await saveSnapshot()
         } catch {
             self.error = error.localizedDescription
-            if case SiteError.login = error { needsLogin = true }
+            if let siteError = error as? SiteError, case .login = siteError { needsLogin = true }
         }
     }
     func selectDate(_ value: Date) async {
