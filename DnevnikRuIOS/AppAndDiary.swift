@@ -475,7 +475,7 @@ struct DiaryScreen: View {
                                         $0.date == lesson.date && $0.subject == lesson.subject && ($0.lessonId == nil || $0.lessonId == lesson.id)
                                     }
                                     if !marks.isEmpty {
-                                        HStack { ForEach(Array(Dictionary(grouping: marks, by: \.id).compactMap(\.value.first))) { mark in MarkPill(value: mark.value, size: 30) } }
+                                        HStack { ForEach(Array(Dictionary(grouping: marks, by: \.id).values.compactMap { $0.first })) { mark in MarkPill(value: mark.value, size: 30) } }
                                     }
                                     ForEach(tasks.filter { $0.lessonId == lesson.id }) { HomeworkRow(item: $0) }
                                 }
