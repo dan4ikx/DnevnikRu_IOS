@@ -186,8 +186,8 @@ enum SiteParser {
                 }
             }
         }
-        let uniqueLessons = Dictionary(grouping: lessons, by: \.id).compactMap(\.value.first)
-        let uniqueHomework = Dictionary(grouping: homework, by: \.id).compactMap(\.value.first)
+        let uniqueLessons = Dictionary(grouping: lessons, by: \.id).values.compactMap { $0.first }
+        let uniqueHomework = Dictionary(grouping: homework, by: \.id).values.compactMap { $0.first }
         return (uniqueLessons, uniqueHomework, dates)
     }
     static func subjectMarks(_ subject: [String: Any]) -> [Mark] {
@@ -208,7 +208,7 @@ enum SiteParser {
     }
     static func marks(_ json: [String: Any]) throws -> [Mark] {
         guard json["subjects"] is [Any] else { throw SiteError.changed("Изменился формат оценок.") }
-        return Array(Dictionary(grouping: JSON.array(json["subjects"]).flatMap(subjectMarks), by: \.id).compactMap(\.value.first))
+        return Array(Dictionary(grouping: JSON.array(json["subjects"]).flatMap(subjectMarks), by: \.id).values.compactMap { $0.first })
     }
     static func gradeBook(_ json: [String: Any], student: Int64, period: GradePeriod, catalog: [GradePeriod]) throws -> GradeBook {
         guard json["subjects"] is [Any] else { throw SiteError.changed("Изменился формат оценок.") }
